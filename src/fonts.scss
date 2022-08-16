@@ -1,0 +1,60 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap');
+@import "./variables.scss";
+
+$open-sans: 'Open Sans', arial, sans-serif;
+
+// Colors
+.text-brand {
+  color: $brand;
+}
+
+a.text-brand:hover, a.text-brand:visited {
+  color: darken($brand, 12%);
+}
+
+
+// Font Weights
+.light {
+  font-weight: 300 !important;
+}
+
+.normal-bold {
+  font-weight: 400 !important;
+}
+
+.semibold {
+  font-weight: 600 !important;
+}
+
+.bold {
+  font-weight: 700 !important;
+}
+
+.max-bold {
+  font-weight: 900 !important;
+}
+
+// Font Sizes
+.head-small {
+  font-family: $open-sans;
+  font-size: 24px;
+}
+
+.head-x-small {
+  font-family: $open-sans;
+  font-size: 20px;
+}
+
+.subhead-large {
+  font-family: $open-sans;
+  font-size: 16px;
+}
+
+.subhead-base {
+  font-family: $open-sans;
+  font-size: 14px;
+}
+
+.icon-large {
+  font-size: 16px;
+}

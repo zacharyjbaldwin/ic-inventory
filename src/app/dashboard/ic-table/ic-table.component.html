@@ -1,0 +1,88 @@
+<div *ngIf="isLoading; else content" class="d-flex justify-content-center">
+  <loading-spinner></loading-spinner>
+</div>
+<ng-template #content>
+  <div class="d-flex align-items-end justify-content-between mb-8px">
+    <span class="head-small semibold">Integrated Circuits</span>
+    <div class="d-flex align-items-end gap-8px">
+      <a type="button" class="head-x-small normal-bold text-brand" (click)="setPanelsOpen(true)">Expand All</a>
+      <a type="button" class="head-x-small normal-bold text-brand" (click)="setPanelsOpen(false)">Collapse All</a>
+    </div>
+  </div>
+  <table>
+    <thead>
+      <tr>
+        <th class="no-select" class="subhead-large semibold">
+          Code
+          <i class="cursor-pointer sort-button fa-solid fa-chevron-down ml-8px text-brand" *ngIf="sortDescending == false" (click)="sort(columns.Code)" [ngClass]="{ 'active': sortColumn == columns.Code }"></i>
+          <i class="cursor-pointer sort-button fa-solid fa-chevron-up ml-8px text-brand" *ngIf="sortDescending == true" (click)="sort(columns.Code)" [ngClass]="{ 'active': sortColumn == columns.Code }"></i>
+        </th>
+        <th class="no-select" class="subhead-large semibold">
+          Type
+          <i class="cursor-pointer sort-button fa-solid fa-chevron-down ml-8px text-brand" *ngIf="sortDescending == false" (click)="sort(columns.Type)" [ngClass]="{ 'active': sortColumn == columns.Type }"></i>
+          <i class="cursor-pointer sort-button fa-solid fa-chevron-up ml-8px text-brand" *ngIf="sortDescending == true" (click)="sort(columns.Type)" [ngClass]="{ 'active': sortColumn == columns.Type }"></i>
+        </th>
+        <th class="no-select" class="subhead-large semibold">
+          Description
+          <i class="cursor-pointer sort-button fa-solid fa-chevron-down ml-8px text-brand" *ngIf="sortDescending == false" (click)="sort(columns.Description)" [ngClass]="{ 'active': sortColumn == columns.Description }"></i>
+          <i class="cursor-pointer sort-button fa-solid fa-chevron-up ml-8px text-brand" *ngIf="sortDescending == true" (click)="sort(columns.Description)" [ngClass]="{ 'active': sortColumn == columns.Description }"></i>
+        </th>
+        <th class="no-select" class="subhead-large semibold">
+          Datasheet URL
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <ng-container *ngFor="let ic of integratedCircuits; let i = index">
+        <tr class="subhead-base normal-bold">
+          <td>
+            <div class="d-flex justify-content-start align-items-center gap-8px">
+              <i *ngIf="!panelOpen[i]" class="fa-solid fa-chevron-right icon-large cursor-pointer w-20px text-brand" (click)="togglePanel(i)"></i>
+              <i *ngIf="panelOpen[i]" class="fa-solid fa-chevron-down icon-large cursor-pointer w-20px text-brand" (click)="togglePanel(i)"></i>
+              {{ ic.shorthand == null ? ic.code : ic.code + ' (' + ic.shorthand + ')' }}
+            </div>
+          </td>
+          <td>{{ ic.type }}</td>
+          <td>{{ ic.description }}</td>
+          <td>
+            <a [href]="ic.datasheetUrl" class="text-brand">{{ ic.datasheetUrl }}</a>
+          </td>
+        </tr>
+        <tr [collapse]="!panelOpen[i]" [isAnimated]="false">
+          <td colspan="100%">
+            <div class="d-flex flex-column">
+
+              <div *ngIf="showIncompleteRecordWarning(i)" class="alert alert-warning alert-sm">
+                This is an incomplete record. Records with a code, type, description, and datasheet URL are considered complete. <a href="#">Edit details</a>
+              </div>
+
+              <div class="d-flex align-items-center justify-content-between">
+                <div class="d-flex flex-column">
+                  <div *ngIf="ic.location" class="d-flex gap-8px">
+                    <span class="subhead-base semibold">Location:</span>
+                    <span class="subhead-base normal-bold">{{ ic.location }}</span>
+                  </div>
+
+                  <div *ngIf="ic.series" class="d-flex gap-8px">
+                    <span class="subhead-base semibold">Series:</span>
+                    <span class="subhead-base normal-bold">{{ ic.series }}</span>
+                  </div>
+
+                  <div *ngIf="ic.notes" class="d-flex gap-8px">
+                    <span class="subhead-base semibold">Notes:</span>
+                    <span class="subhead-base normal-bold">{{ ic.notes }}</span>
+                  </div>
+                </div>
+                <div>
+                  edit
+                  dlete
+                </div>
+              </div>
+            </div>
+
+          </td>
+        </tr>
+      </ng-container>
+    </tbody>
+  </table>
+</ng-template>
