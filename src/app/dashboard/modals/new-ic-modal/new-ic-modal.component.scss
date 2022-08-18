@@ -1,0 +1,13 @@
+@import "../../../../utilities.scss";
+
+.new-ic-modal {
+  margin: 16px;
+}
+
+input.ng-touched.ng-invalid {
+  border: 1px solid red;
+}
+
+.error-message {
+  color: red;
+}

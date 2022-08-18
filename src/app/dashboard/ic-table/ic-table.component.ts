@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { IntegratedCircuit } from 'src/app/models/integrated-circuit.model';
 import { IntegratedCircuitsService } from 'src/app/services/integrated-circuits.service';
 import { Column } from 'src/app/shared/table-structure.enum';
+import { NewIcModalComponent } from '../modals/new-ic-modal/new-ic-modal.component';
 
 @Component({
   selector: 'ic-table',
@@ -16,15 +18,36 @@ export class IcTableComponent implements OnInit {
   public panelOpen: boolean[] = [];
   public sortColumn: Column = 0;
   public sortDescending: boolean = true;
+  public totalRecords: number = 0;
 
-  constructor(private icService: IntegratedCircuitsService) { }
+  public newIntegratedCircuitModal?: BsModalRef;
+
+  constructor(
+    private icService: IntegratedCircuitsService,
+    private modalService: BsModalService
+  ) { }
 
   ngOnInit(): void {
     this.icService.integratedCircuitsListChanged.subscribe((integratedCircuits) => {
-      this.integratedCircuits = integratedCircuits;
-      this.panelOpen = [];
-      this.integratedCircuits.forEach(() => this.panelOpen.push(false));
+      if (integratedCircuits) {
+        this.totalRecords = integratedCircuits.length;
+        this.integratedCircuits = integratedCircuits;
+        this.panelOpen = [];
+        this.integratedCircuits.forEach(() => this.panelOpen.push(false));
+      }
       this.isLoading = false;
+    });
+  }
+
+  deleteIntegratedCircuit(i: number) {
+    this.icService.deleteIntegratedCircuit(i);
+  }
+
+  public openNewIntegratedCircuitModal() {
+    this.newIntegratedCircuitModal = this.modalService.show(NewIcModalComponent);
+    (this.newIntegratedCircuitModal.content as NewIcModalComponent).confirm.subscribe((integratedCircuit) => {
+      console.log(integratedCircuit);
+      this.icService.addIntegratedCircuit(integratedCircuit);
     });
   }
 

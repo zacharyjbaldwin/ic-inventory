@@ -2,6 +2,10 @@
   cursor: pointer;
 }
 
+.full-width {
+  width: 100%;
+}
+
 .no-select {
   user-select: none;
 }
@@ -11,6 +15,10 @@
 }
 
 // margin bottom
+.mb-4px {
+  margin-bottom: 4px;
+}
+
 .mb-8px {
   margin-bottom: 8px;
 }

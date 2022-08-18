@@ -18,5 +18,9 @@ export class AppComponent implements OnInit {
     this.dataService.fetchIntegratedCircuits().subscribe((integratedCircuits) => {
       this.icService.setIntegratedCircuits(integratedCircuits);
     });
+
+    this.icService.integratedCircuitsListChanged.subscribe((integratedCircuits) => {
+      this.dataService.storeIntegratedCircuits(integratedCircuits);
+    });
   }
 }

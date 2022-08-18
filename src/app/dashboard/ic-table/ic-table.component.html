@@ -3,7 +3,15 @@
 </div>
 <ng-template #content>
   <div class="d-flex align-items-end justify-content-between mb-8px">
-    <span class="head-small semibold">Integrated Circuits</span>
+    <div class="d-flex align-items-end gap-8px">
+      <span class="head-small semibold">Integrated Circuits</span>
+      <button type="button" class="btn btn-dark btn-sm" (click)="openNewIntegratedCircuitModal()">
+        <i class="fa-solid fa-plus" style="color: white"></i> Add
+      </button>
+      <!-- <button type="button" class="btn btn-dark btn-sm">
+        <i class="fa-solid fa-box-archive" style="color: white"></i> Bulk Add
+      </button> -->
+    </div>
     <div class="d-flex align-items-end gap-8px">
       <a type="button" class="head-x-small normal-bold text-brand" (click)="setPanelsOpen(true)">Expand All</a>
       <a type="button" class="head-x-small normal-bold text-brand" (click)="setPanelsOpen(false)">Collapse All</a>
@@ -45,7 +53,7 @@
           <td>{{ ic.type }}</td>
           <td>{{ ic.description }}</td>
           <td>
-            <a [href]="ic.datasheetUrl" class="text-brand">{{ ic.datasheetUrl }}</a>
+            <a [href]="ic.datasheetUrl" target="_blank" class="text-brand">{{ ic.datasheetUrl }}</a>
           </td>
         </tr>
         <tr [collapse]="!panelOpen[i]" [isAnimated]="false">
@@ -73,9 +81,9 @@
                     <span class="subhead-base normal-bold">{{ ic.notes }}</span>
                   </div>
                 </div>
-                <div>
-                  edit
-                  dlete
+                <div class="d-flex gap-8px">
+                  <button class="btn btn-light">Edit</button>
+                  <button class="btn btn-danger" (click)="deleteIntegratedCircuit(i)">Delete</button>
                 </div>
               </div>
             </div>
