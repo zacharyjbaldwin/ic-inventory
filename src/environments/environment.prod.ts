@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  databaseUrl: 'https://ic-inventory-30a11-default-rtdb.firebaseio.com'
+  databaseUrl: 'https://ic-inventory-demo-default-rtdb.firebaseio.com'
 };
